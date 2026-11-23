@@ -9,7 +9,6 @@ class IconDocument : public QObject
 public:
     explicit IconDocument(QObject *parent = nullptr);
 
-signals:
 };
 
 #endif // ICONDOCUMENT_H

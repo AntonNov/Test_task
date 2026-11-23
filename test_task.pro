@@ -10,6 +10,7 @@ SOURCES += \
     graphicscanvasview.cpp \
     icondocument.cpp \
     iconlistwidget.cpp \
+    iconpainter.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -17,6 +18,7 @@ HEADERS += \
     graphicscanvasview.h \
     icondocument.h \
     iconlistwidget.h \
+    iconpainter.h \
     mainwindow.h
 
 # Default rules for deployment.

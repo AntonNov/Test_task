@@ -10,6 +10,7 @@
 #include "GraphicsCanvasView.h"
 #include "IconListWidget.h"
 #include "IconDocument.h"
+#include "iconpainter.h"
 
 
 const int CANVAS_WIDTH = 1024;
@@ -43,6 +44,8 @@ void MainWindow::setupUi()
     m_canvasView->setFixedSize(CANVAS_WIDTH, CANVAS_HEIGHT);
 
     m_iconList = new IconListWidget(centralWidget);
+    m_iconList->setIconSize(QSize(64, 64));
+    m_iconList->addIcon(icon(InfoIcon), "Иконка", InfoIcon);
     m_iconList->setCurrentRow(0);
 
     m_controlsGroup = new QGroupBox("Элементы управления", centralWidget);
@@ -89,6 +92,7 @@ void MainWindow::setupUi()
 
 void MainWindow::setupConnections()
 {
+
 
 }
 
