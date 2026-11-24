@@ -9,12 +9,14 @@
 - qmake и компилятор MinGW 8.1 (32-bit)
 - Doxygen — только для сборки документации
 
-## Запуск
+## Клонирование
 
 ```bash
 git clone https://github.com/AntonNov/Test_task.git
 cd Test_task
 ```
+
+## Сборка и запуск
 
 ### В Qt Creator
 
