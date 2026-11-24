@@ -6,10 +6,13 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QHeaderView>
+#include <QStatusBar>
+
 
 #include "GraphicsCanvasView.h"
 #include "IconListWidget.h"
 #include "IconDocument.h"
+#include "iconrecordsmodel.h"
 #include "iconpainter.h"
 
 
@@ -43,6 +46,8 @@ void MainWindow::setupUi()
     m_canvasView = new GraphicsCanvasView(centralWidget);
     m_canvasView->setFixedSize(CANVAS_WIDTH, CANVAS_HEIGHT);
 
+    m_document = new IconDocument(m_canvasView->scene(), this);
+
     m_iconList = new IconListWidget(centralWidget);
     m_iconList->setIconSize(QSize(64, 64));
     m_iconList->addIcon(icon(InfoIcon), "Иконка", InfoIcon);
@@ -57,9 +62,11 @@ void MainWindow::setupUi()
 
     m_recordsView = new QListView(centralWidget);
     m_recordsView->setObjectName("recordsView");
+    m_recordsView->setModel(m_document->recordsModel());
     m_recordsView->setSelectionMode(QAbstractItemView::SingleSelection);
     m_recordsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_recordsView->setUniformItemSizes(true);
+    m_recordsView->setMinimumHeight(MIN_PANEL_HEIGHT);
 
 
     m_coordinatesView = new QTableView(centralWidget);
@@ -92,7 +99,29 @@ void MainWindow::setupUi()
 
 void MainWindow::setupConnections()
 {
+    connect(m_iconList, &IconListWidget::iconActivated,
+            this, &MainWindow::onIconActivated);
+    connect(m_canvasView, &GraphicsCanvasView::iconDropped,
+            this, &MainWindow::onIconDropped);
+    connect(m_document, &IconDocument::iconCreated,
+            this, &MainWindow::onIconCreated);
+
+}
 
 
+void MainWindow::onIconActivated()
+{
+    statusBar()->showMessage("clicked on icon");
+}
+
+void MainWindow::onIconDropped(int iconId)
+{
+    m_document->createIcon(iconId);
+}
+
+
+void MainWindow::onIconCreated(int row)
+{
+    m_recordsView->setCurrentIndex(m_document->recordsModel()->index(row, 0));
 }
 

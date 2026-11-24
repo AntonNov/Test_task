@@ -13,7 +13,6 @@ QPixmap drawInfoIcon(int side){
     painter.setRenderHint(QPainter::Antialiasing, true);
     painter.setRenderHint(QPainter::TextAntialiasing, true);
 
-
     const qreal inset = side * 0.05;
     const QRectF frame(inset, inset, side - 2.0 * inset, side - 2.0 * inset);
     painter.drawRoundedRect(frame, side * 0.2, side * 0.2);

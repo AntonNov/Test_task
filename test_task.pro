@@ -9,16 +9,22 @@ CONFIG += c++17
 SOURCES += \
     graphicscanvasview.cpp \
     icondocument.cpp \
+    icongraphicsitem.cpp \
     iconlistwidget.cpp \
     iconpainter.cpp \
+    iconrecordsmodel.cpp \
+    icontransfer.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     graphicscanvasview.h \
     icondocument.h \
+    icongraphicsitem.h \
     iconlistwidget.h \
     iconpainter.h \
+    iconrecordsmodel.h \
+    icontransfer.h \
     mainwindow.h
 
 # Default rules for deployment.

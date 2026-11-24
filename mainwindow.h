@@ -18,10 +18,15 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
+private slots:
+    void onIconActivated();
+    void onIconDropped(int iconId);
+    void onIconCreated(int row);
 
 private:
     void setupUi();
     void setupConnections();
+
 
     GraphicsCanvasView *m_canvasView;
     IconListWidget *m_iconList;
