@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QHeaderView>
+#include <QItemSelectionModel>
 #include <QStatusBar>
 
 
@@ -13,6 +14,9 @@
 #include "IconListWidget.h"
 #include "IconDocument.h"
 #include "iconrecordsmodel.h"
+#include "iconcoordinatesmodel.h"
+#include "icongraphicsitem.h"
+#include "coordinatespinboxdelegate.h"
 #include "iconpainter.h"
 
 
@@ -22,6 +26,8 @@ const int CONTROL_WIDTH = 300;
 const int LAYOUT_MARGIN = 8;
 const int LAYOUT_SPACING = 8;
 const int MIN_PANEL_HEIGHT = 200;
+const int COORDINATE_COLUMN_WIDTH = 100;
+const int COORDINATE_ROW_HEIGHT = 28;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -71,12 +77,21 @@ void MainWindow::setupUi()
 
     m_coordinatesView = new QTableView(centralWidget);
     m_coordinatesView->setObjectName("coordinatesView");
+    m_coordinatesView->setModel(m_document->coordinatesModel());
     m_coordinatesView->setMinimumHeight(MIN_PANEL_HEIGHT);
     m_coordinatesView->setSelectionMode(QAbstractItemView::SingleSelection);
     m_coordinatesView->setSelectionBehavior(QAbstractItemView::SelectItems);
     m_coordinatesView->setEditTriggers(QAbstractItemView::DoubleClicked
                                        | QAbstractItemView::EditKeyPressed
                                        | QAbstractItemView::AnyKeyPressed);
+    m_coordinatesView->horizontalHeader()->hide();
+    m_coordinatesView->verticalHeader()->hide();
+    m_coordinatesView->horizontalHeader()->setDefaultSectionSize(COORDINATE_COLUMN_WIDTH);
+    m_coordinatesView->verticalHeader()->setDefaultSectionSize(COORDINATE_ROW_HEIGHT);
+    m_coordinatesView->setItemDelegate(new CoordinateSpinBoxDelegate(
+        CANVAS_WIDTH - IconGraphicsItem::IconSize,
+        CANVAS_HEIGHT - IconGraphicsItem::IconSize,
+        m_coordinatesView));
 
     QHBoxLayout *bottomRow = new QHBoxLayout;
     bottomRow->setSpacing(LAYOUT_SPACING);
@@ -105,6 +120,8 @@ void MainWindow::setupConnections()
             this, &MainWindow::onIconDropped);
     connect(m_document, &IconDocument::iconCreated,
             this, &MainWindow::onIconCreated);
+    connect(m_recordsView->selectionModel(), &QItemSelectionModel::currentRowChanged,
+            this, &MainWindow::onRecordSelected);
 
 }
 
@@ -123,5 +140,11 @@ void MainWindow::onIconDropped(int iconId)
 void MainWindow::onIconCreated(int row)
 {
     m_recordsView->setCurrentIndex(m_document->recordsModel()->index(row, 0));
+}
+
+
+void MainWindow::onRecordSelected(const QModelIndex &current)
+{
+    m_document->setCurrentRow(current.isValid() ? current.row() : -1);
 }
 

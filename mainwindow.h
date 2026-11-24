@@ -5,6 +5,7 @@
 
 class QGroupBox;
 class QListView;
+class QModelIndex;
 class QTableView;
 class IconListWidget;
 class GraphicsCanvasView;
@@ -22,6 +23,7 @@ private slots:
     void onIconActivated();
     void onIconDropped(int iconId);
     void onIconCreated(int row);
+    void onRecordSelected(const QModelIndex &current);
 
 private:
     void setupUi();

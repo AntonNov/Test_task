@@ -6,11 +6,13 @@
 #include "iconpainter.h"
 #include "icongraphicsitem.h"
 #include "iconrecordsmodel.h"
+#include "iconcoordinatesmodel.h"
 
 IconDocument::IconDocument(QGraphicsScene *scene, QObject *parent)
     : QObject(parent)
     , m_scene(scene)
     , m_records(new IconRecordsModel(this))
+    , m_coordinates(new IconCoordinatesModel(this))
     , m_currentRow(-1)
     , m_topZValue(0.0)
 {
@@ -48,5 +50,6 @@ void IconDocument::setCurrentRow(int row)
         return;
 
     m_currentRow = row;
+    m_coordinates->setIcon(row >= 0 ? m_records->iconAt(row) : nullptr);
     emit currentRowChanged(row);
 }
