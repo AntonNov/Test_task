@@ -1,0 +1,31 @@
+PROJECT_NAME           = "test_task"
+PROJECT_BRIEF          = "Перетаскивание иконки на графическую сцену"
+OUTPUT_DIRECTORY       = docs
+
+INPUT                  = .
+FILE_PATTERNS          = *.h *.cpp
+RECURSIVE              = NO
+EXCLUDE_PATTERNS       = build/*
+
+INPUT_ENCODING         = UTF-8
+OUTPUT_LANGUAGE        = Russian
+
+EXTRACT_ALL            = YES
+JAVADOC_AUTOBRIEF      = YES
+SORT_MEMBER_DOCS       = YES
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_TREEVIEW      = YES
+GENERATE_LATEX         = NO
+GENERATE_MAN           = NO
+GENERATE_RTF           = NO
+GENERATE_XML           = NO
+
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+
+QUIET                  = YES
+HAVE_DOT               = NO
