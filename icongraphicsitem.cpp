@@ -6,11 +6,8 @@
 #include <QStyleOptionGraphicsItem>
 #include <QVariant>
 
-namespace
-{
-/// Цвет рамки выделения объекта.
-const QColor kSelectionColor(0x3D, 0x7E, 0xC4);
-} // namespace
+
+const QColor SELECTION_COLOR(0x3D, 0x7E, 0xC4);
 
 IconGraphicsItem::IconGraphicsItem(const QPixmap &iconPixmap, int iconId, QGraphicsItem *parent)
     : QGraphicsObject(parent)
@@ -22,7 +19,7 @@ IconGraphicsItem::IconGraphicsItem(const QPixmap &iconPixmap, int iconId, QGraph
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton);
     setCursor(Qt::SizeAllCursor);
-    setToolTip(tr("Перетащите объект мышью или задайте его координаты в таблице"));
+    setToolTip("Перетащите объект мышью или задайте его координаты в таблице");
 }
 
 QRectF IconGraphicsItem::boundingRect() const
@@ -37,8 +34,7 @@ void IconGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 
     if (option->state & QStyle::State_Selected)
     {
-        // Пунктирная рамка внутри объекта повторяет оформление выделения на рисунке задания.
-        QPen pen(kSelectionColor, 1.0, Qt::DashLine);
+        QPen pen(SELECTION_COLOR, 1.0, Qt::DashLine);
         pen.setCosmetic(true);
         painter->setPen(pen);
         painter->setBrush(Qt::NoBrush);
@@ -55,8 +51,6 @@ QVariant IconGraphicsItem::itemChange(GraphicsItemChange change, const QVariant 
 {
     if (change == QGraphicsItem::ItemPositionChange && scene() != nullptr)
     {
-        // Объект не должен выходить за границы сцены, а его координаты —
-        // всегда целые, чтобы совпадать со значениями таблицы поля (4).
         const QRectF canvas = scene()->sceneRect();
         const qreal maximumX = qMax<qreal>(0.0, canvas.width() - IconSize);
         const qreal maximumY = qMax<qreal>(0.0, canvas.height() - IconSize);

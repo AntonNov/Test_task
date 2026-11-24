@@ -21,7 +21,7 @@ int IconDocument::createIcon(int iconId)
 {
     const QPixmap iconPixmap = pixmap(iconId, IconGraphicsItem::IconSize);
 
-    auto *icon = new IconGraphicsItem(iconPixmap, iconId);
+    IconGraphicsItem *icon = new IconGraphicsItem(iconPixmap, iconId);
     m_scene->addItem(icon);
 
     icon->setPos(0.0, 0.0);

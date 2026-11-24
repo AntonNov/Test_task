@@ -5,31 +5,31 @@
 #include <QString>
 
 
-const char kIconMimeType[] = "application/x-qticon-catalog-item";
+const char ICON_MIME_TYPE[] = "application/x-qticon-catalog-item";
 
-QString IconTransfer::mimeType()
+QString mimeType()
 {
-    return QString::fromLatin1(kIconMimeType);
+    return QString::fromLatin1(ICON_MIME_TYPE);
 }
 
-QMimeData *IconTransfer::createMimeData(int iconId)
+QMimeData *createMimeData(int iconId)
 {
-    auto *mimeData = new QMimeData;
-    mimeData->setData(kIconMimeType, QByteArray::number(iconId));
+    QMimeData *mimeData = new QMimeData;
+    mimeData->setData(ICON_MIME_TYPE, QByteArray::number(iconId));
     return mimeData;
 }
 
-bool IconTransfer::canDecode(const QMimeData *mimeData)
+bool canDecode(const QMimeData *mimeData)
 {
-    return mimeData != nullptr && mimeData->hasFormat(kIconMimeType);
+    return mimeData != nullptr && mimeData->hasFormat(ICON_MIME_TYPE);
 }
 
-int IconTransfer::decodeIconId(const QMimeData *mimeData)
+int decodeIconId(const QMimeData *mimeData)
 {
     if (!canDecode(mimeData))
         return -1;
 
     bool ok = false;
-    const int iconId = mimeData->data(kIconMimeType).toInt(&ok);
+    const int iconId = mimeData->data(ICON_MIME_TYPE).toInt(&ok);
     return ok ? iconId : -1;
 }

@@ -37,10 +37,8 @@ void IconListWidget::startDrag(Qt::DropActions supportedActions)
 
     const int iconId = draggedItem->data(IconIdRole).toInt();
 
-    // QDrag живёт на стеке: exec() синхронна, а MIME-данные освобождаются
-    // вместе с объектом перетаскивания.
     QDrag dragObject(this);
-    dragObject.setMimeData(IconTransfer::createMimeData(iconId));
+    dragObject.setMimeData(createMimeData(iconId));
 
     const QPixmap preview = draggedItem->icon().pixmap(ICON_SIZE, ICON_SIZE);
     if (!preview.isNull())

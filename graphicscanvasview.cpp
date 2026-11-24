@@ -31,7 +31,7 @@ GraphicsCanvasView::GraphicsCanvasView(QWidget *parent)
 
 void GraphicsCanvasView::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (!IconTransfer::canDecode(event->mimeData()))
+    if (!canDecode(event->mimeData()))
     {
         event->ignore();
         return;
@@ -44,7 +44,7 @@ void GraphicsCanvasView::dragEnterEvent(QDragEnterEvent *event)
 
 void GraphicsCanvasView::dragMoveEvent(QDragMoveEvent *event)
 {
-    if (!IconTransfer::canDecode(event->mimeData()))
+    if (!canDecode(event->mimeData()))
     {
         event->ignore();
         return;
@@ -57,7 +57,7 @@ void GraphicsCanvasView::dragMoveEvent(QDragMoveEvent *event)
 
 void GraphicsCanvasView::dropEvent(QDropEvent *event)
 {
-    const int iconId = IconTransfer::decodeIconId(event->mimeData());
+    const int iconId = decodeIconId(event->mimeData());
     if (iconId < 0)
     {
         event->ignore();

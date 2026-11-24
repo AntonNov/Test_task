@@ -1,14 +1,11 @@
-#include "IconRecordsModel.h"
+#include "iconrecordsmodel.h"
 
 #include <QString>
 
 #include "icongraphicsitem.h"
 
-namespace
-{
-/// Подпись строки списка, как на рисунке задания.
-const char kRecordTitle[] = "[icon]";
-} // namespace
+
+const char RECORD_TITLE[] = "[icon]";
 
 IconRecordsModel::IconRecordsModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -33,10 +30,10 @@ QVariant IconRecordsModel::data(const QModelIndex &index, int role) const
     switch (role)
     {
     case Qt::DisplayRole:
-        return QString::fromLatin1(kRecordTitle);
+        return QString::fromLatin1(RECORD_TITLE);
 
     case Qt::ToolTipRole:
-        return tr("Координаты: x = %1, y = %2")
+        return QString("Координаты: x = %1, y = %2")
             .arg(icon->topLeft().x())
             .arg(icon->topLeft().y());
 
